@@ -1,5 +1,5 @@
 {
     "monitor-period":2,
-    "user-account": null,
-    "private-apt-key": "iqnn"
+    "account": "qinnan0416@gmail.com",
+    "private-api-key": "privatekey"
 }

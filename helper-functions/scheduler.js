@@ -1,23 +1,6 @@
-const exec_ = require('child_process').exec;
 const EventEmitter = require('events');
-
-function decimal(number, percision){
-    percision = Math.pow(10, percision);
-    return Math.round(number * percision) / percision;
-}
-
-function exec(cmd, callback){
-    let child = exec_(cmd, (err, stdout, stderr) => {
-        if(err){
-            callback(err, null);
-        }else if(stdout){
-            callback(null, {response: stdout});
-        }else{
-            callback(new Error(stderr), null);
-        }
-    });
-}
-
+const logger = require('./logger');
+// task(data, callback), where callback (err, res)
 function scheduler(arr, num_worker, task, callback){
     const sche = new EventEmitter();
     let result_list = new Map();
@@ -40,6 +23,7 @@ function scheduler(arr, num_worker, task, callback){
         }else{
             task(arr[i], (err, res)=>{
                 if(err){
+                    logger.error(err.message);
                     err_list.set(arr[i], err);
                 }else if(res){
                     result_list.set(arr[i], res);
@@ -57,5 +41,3 @@ function scheduler(arr, num_worker, task, callback){
 }
 
 module.exports.scheduler = scheduler;
-module.exports.decimal = decimal;
-module.exports.exec = exec;

@@ -1,0 +1,5 @@
+{
+    "monitor-period":2,
+    "rest-prefix":"/restapi",
+    "domain":"https://monitor.sousys.com"
+}

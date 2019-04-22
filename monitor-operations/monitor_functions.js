@@ -1,7 +1,12 @@
 const os = require('os');
-const decimal = require('./helper_functions').decimal;
 const fs = require('fs');
 const async = require('async');
+
+function decimal(number, percision){
+    percision = Math.pow(10, percision);
+    return Math.round(number * percision) / percision;
+}
+
 /**
  * 
  * @param {*} [period] A millisecond time period, default 100
