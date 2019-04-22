@@ -6,6 +6,9 @@ const user_configuration = jsonloader("configuration.json");
 const has_value = require('./helper-functions/common').has_value;
 const verify_private_api_key = require('./http-sender/wrapper').verify_private_api_key;
 const terminate_monitoring = require('./http-sender/wrapper').terminate_monitoring;
+const overall = require('./monitor-operations/monitor-functions').overall;
+const post =require('./http-sender/post');
+
 
 if(!has_value(user_configuration)){
     logger.error("Missing configuration file");
@@ -20,10 +23,14 @@ if(!has_value(user_configuration["private-api-key"])){
     return;
 }
 // initialization
-require('./http-sender/urls').set_domain(system_configuration['domain']);
-require('./http-sender/urls').set_rest_prefix(system_configuration['rest-prefix']);
+let domain = system_configuration['domain'];
+let rest_prefix = system_configuration['rest-prefix'];
+require('./http-sender/urls').set_domain(domain);
+require('./http-sender/urls').set_rest_prefix(rest_prefix);
+
 
 let account = user_configuration["account"];
+let urlEncodedAccount = encodeURIComponent(account);
 let private_api_key = user_configuration["private-api-key"];
 let handle;
 
@@ -35,7 +42,10 @@ function start_monitoring(){
         interval_ = system_configuration['monitor-period'];
     }
     handle = setInterval(()=>{
-        console.log("sending");
+        overall(interval_ * 1000, data=>{
+            console.log(data);
+            post(`${domain}/${rest_prefix}/uploadmetrics/${urlEncodedAccount}`, private_api_key, data);
+        });
     }, interval_ * 1000)
     return handle;
 }

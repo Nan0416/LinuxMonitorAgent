@@ -20,12 +20,12 @@ function post(url, private_key, data_, callback){
     request(options, (err, res, body)=>{
         if(err){
             logger.error(err.message);
-            callback(false, null);
+            if (callback) callback(false, null);
         }else if(res.statusCode != 200){
             logger.warn(`HTTP POST Response ${url} ${res.statusMessage} ${res.statusCode}`);
-            callback(false, body);
+            if (callback) callback(false, body);
         }else{
-            callback(true, body);
+            if (callback) callback(true, body);
         }
     });
 }
