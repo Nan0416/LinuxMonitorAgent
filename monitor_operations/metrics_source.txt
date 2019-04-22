@@ -1,0 +1,5 @@
+cpu: node.js os.cpus()
+memory: /proc/meminfo
+system static info: /proc/cpuinfo + os.*
+system load: os.loadavg() [/proc/loadavg]
+network i/o: /proc/net/dev

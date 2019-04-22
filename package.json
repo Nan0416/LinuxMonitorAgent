@@ -1,0 +1,30 @@
+{
+  "name": "sousys-agent",
+  "version": "1.0.0",
+  "description": "The linux monitor application's agent that run on the monitored linux.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nan Qin",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.2",
+    "fs": "0.0.1-security",
+    "os": "^0.1.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nan0416/LinuxMonitorAgent.git"
+  },
+  "keywords": [
+    "agent",
+    "linux",
+    "monitor"
+  ],
+  "bugs": {
+    "url": "https://github.com/Nan0416/LinuxMonitorAgent/issues"
+  },
+  "homepage": "https://github.com/Nan0416/LinuxMonitorAgent#readme"
+}
