@@ -1,10 +1,13 @@
 const request = require('request');
 const logger = require('../helper-functions/logger');
 
-function get(url, callback){
+function get(url, agent_id, callback){
     let options = {
         uri: url,
         method:"GET",
+        form:{
+            "agent-id": agent_id
+        }
     };
 
     request(options, (err, res, body)=>{

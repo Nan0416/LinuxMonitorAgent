@@ -2,7 +2,7 @@ const request = require('request');
 const logger = require('../helper-functions/logger');
 const has_value = require('../helper-functions/common').has_value;
 
-function post(url, private_key, data_, callback){
+function post(url, agent_id, private_key, data_, callback){
     let options = {
         uri: url,
         method:"POST"
@@ -10,11 +10,13 @@ function post(url, private_key, data_, callback){
     if(has_value(private_key)){
         options['json'] = {
             "private-key": private_key,
+            "agent-id": agent_id,
             "data": data_,
         };
     }else{
         options['json'] = {
-          "data": data_,
+            "agent-id":agent_id,
+            "data": data_,
         };
     };
     request(options, (err, res, body)=>{

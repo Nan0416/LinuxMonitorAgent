@@ -33,6 +33,10 @@ let account = user_configuration["account"];
 let urlEncodedAccount = encodeURIComponent(account);
 let private_api_key = user_configuration["private-api-key"];
 let handle;
+let agent_instance_id = os.hostname();
+if(!has_value(user_configuration['agent-id'])){
+    agent_instance_id = user_configuration['agent-id'];
+}
 
 function start_monitoring(){
     let interval_ = user_configuration["monitor-period"];
@@ -44,7 +48,7 @@ function start_monitoring(){
     handle = setInterval(()=>{
         overall(interval_ * 1000, data=>{
             console.log(data);
-            post(`${domain}/${rest_prefix}/uploadmetrics/${urlEncodedAccount}`, private_api_key, data);
+            post(`${domain}/${rest_prefix}/${urlEncodedAccount}`, agent_instance_id, private_api_key, data);
         });
     }, interval_ * 1000)
     return handle;
