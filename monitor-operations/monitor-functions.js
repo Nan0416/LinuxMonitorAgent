@@ -442,7 +442,7 @@ function overall(period, callback){
         new_result.cpusys = final_result.CPU.overview.sys;
         new_result.memtotal = final_result.memory.MemTotal;
         new_result.memfree = final_result.memory.MemFree;
-        new_result.memavil = final_result.memory.MemAvailable;
+        new_result.memavail = final_result.memory.MemAvailable;
         new_result.disk = [];
         let disk_ = final_result.diskIO.disk_io;
         for(let i = 0; i < disk_.length; i++){
