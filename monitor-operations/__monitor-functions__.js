@@ -1,28 +1,7 @@
 const os = require('os');
 const fs = require('fs');
 const async = require('async');
-/**
- * "data":{
-		"loadavg":[1,1,1],
-		"corenum":4,
-		"cpuuser":0.2,
-		"cpusys":0.2,
-		"memtotal":2319231430,
-		"memfree":343425233,
-		"memavail":2343432,
-		"disk":[
-			{
-				"name":"sdb",
-				"write":343,
-				"read":2434
-			},{
-				"name":"sda",
-				"write":34,
-				"read":434
-			}
-		]
-	}
- */
+
 function decimal(number, percision){
     percision = Math.pow(10, percision);
     return Math.round(number * percision) / percision;
@@ -433,27 +412,11 @@ function overall(period, callback){
             })
         }
     ],()=>{
-
         final_result['timestamp'] = Date.now();
-        let new_result = {};
-        new_result.loadavg = final_result.loadavg.loadavg;
-        new_result.corenum = final_result.CPU.corenum;
-        new_result.cpuuser = final_result.CPU.overview.user;
-        new_result.cpusys = final_result.CPU.overview.sys;
-        new_result.memtotal = final_result.memory.MemTotal;
-        new_result.memfree = final_result.memory.MemFree;
-        new_result.memavil = final_result.memory.MemAvailable;
-        new_result.disk = [];
-        let disk_ = final_result.diskIO.disk_io;
-        for(let i = 0; i < disk_.length; i++){
-            if(disk_.name.length == 3 && disk_.name.substr(0,2) == "sd"){
-                new_result.disk.push(disk_[i]);
-            }
-        }
         callback({
             success: true,
             reasons:[],
-            value: new_result
+            value: final_result
         });
     });
 
