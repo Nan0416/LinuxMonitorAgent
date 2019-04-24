@@ -446,7 +446,7 @@ function overall(period, callback){
         new_result.disk = [];
         let disk_ = final_result.diskIO.disk_io;
         for(let i = 0; i < disk_.length; i++){
-            if(disk_.name.length == 3 && disk_.name.substr(0,2) == "sd"){
+            if(disk_[i].name.length == 3 && disk_[i].name.substr(0,2) == "sd"){
                 new_result.disk.push(disk_[i]);
             }
         }
