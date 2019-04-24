@@ -60,7 +60,7 @@ function start_monitoring(agentid){
 }
 
 // 1. check if has agent-id, if has start running.
-if(!has_value(system_configuration['agent-id'])){
+if(!has_value(user_configuration['agent-id'])){
     // 2. if not, verify and create instance
     add_agent(`${domain}${url_prefix}/agentinstance/add`, agent_type, key, (success, data)=>{
         if(!success || !data.success){
@@ -72,8 +72,8 @@ if(!has_value(system_configuration['agent-id'])){
         }else{
             let agentid = data.value._id;
             // store in persistent
-            system_configuration['agent-id'] = agentid;
-            if(!jsonsaver('.system-config.json', system_configuration)){
+            user_configuration['agent-id'] = agentid;
+            if(!jsonsaver('configuration.json', user_configuration)){
                 logger.warn(`Failed to saving agent instance id`);
             }
            let handle = start_monitoring(agentid);
@@ -81,7 +81,7 @@ if(!has_value(system_configuration['agent-id'])){
         }
     });
 }else{
-    console.log(`Used existed agentid: ${system_configuration['agent-id']}`);
-    let handle = start_monitoring(system_configuration['agent-id']);
+    console.log(`Used existed agentid: ${user_configuration['agent-id']}`);
+    let handle = start_monitoring(user_configuration['agent-id']);
     task.handle = handle;
 }

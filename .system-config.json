@@ -1,0 +1,7 @@
+{
+  "monitor-period": 2,
+  "agent-type": "common",
+  "url-prefix": "/agent-api",
+  "domain": "https://monitor.sousys.com",
+  "test-domain": "http://localhost:7100"
+}
