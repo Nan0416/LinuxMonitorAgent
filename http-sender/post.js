@@ -19,11 +19,13 @@ function post(url, agent_id, private_key, data_, callback){
             "data": data_,
         };
     };
+    console.log(options)
     request(options, (err, res, body)=>{
         if(err){
             logger.error(err.message);
             if (callback) callback(false, null);
         }else if(res.statusCode != 200){
+            console.log(body);
             logger.warn(`HTTP POST Response ${url} ${res.statusMessage} ${res.statusCode}`);
             if (callback) callback(false, body);
         }else{
