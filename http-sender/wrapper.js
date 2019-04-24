@@ -1,15 +1,51 @@
-const urls = require('./urls');
-const POST = require('./post');
-function verify_private_api_key(account, key, callback){
-    POST(urls.get_verify_private_key_url(), null, {
-        "account": account,
-        "private-api-key":key,
-    }, callback);
+const request = require('request');
+const logger = require('../helper-functions/logger');
+const has_value = require('../helper-functions/common').has_value;
+
+// callback(success, data)
+function add_agent(url, agent_type, key, callback){
+    let option = {
+        uri: url,
+        method:"POST",
+        json:{
+            agenttype: agent_type,
+            key: key,
+        }
+    };
+    request(option, (err, res, body)=>{
+        if(err){
+            logger.error(err.message);
+            if (callback) callback(false, null);
+        }else if(res.statusCode != 200){
+            logger.warn(`HTTP POST Response ${url} ${res.statusMessage} ${res.statusCode}`);
+            if (callback) callback(false, body);
+        }else{
+            if (callback) callback(true, body);
+        }
+    });
 }
-function terminate_monitoring(account, key, callback){
-    POST(urls.get_terminate_monitoring_url(), key, {
-        "account": account
-    }, callback);
+
+function verify_privilege(url, privilege, key, callback){
+    let option = {
+        uri: url,
+        method:"POST",
+        json:{
+            privilege: privilege,
+            key:key,
+        }
+    };
+    request(option, (err, res, body)=>{
+        if(err){
+            logger.error(err.message);
+            if (callback) callback(false, null);
+        }else if(res.statusCode != 200){
+            logger.warn(`HTTP POST Response ${url} ${res.statusMessage} ${res.statusCode}`);
+            if (callback) callback(false, body);
+        }else{
+            if (callback) callback(true, body);
+        }
+    });
 }
-module.exports.verify_private_api_key = verify_private_api_key;
-module.exports.terminate_monitoring = terminate_monitoring;
+
+module.exports.verify_privilege = verify_privilege;
+module.exports.add_agent = add_agent;

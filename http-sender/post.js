@@ -9,7 +9,7 @@ function post(url, agent_id, private_key, data_, callback){
     };
     if(has_value(private_key)){
         options['json'] = {
-            "private-key": private_key,
+            "key": private_key,
             "agent-id": agent_id,
             "data": data_,
         };

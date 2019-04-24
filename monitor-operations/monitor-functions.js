@@ -332,6 +332,35 @@ function loadavg(callback){
 ///////////////////////////// Overall ///////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 function overall(period, callback){
+    /* For MacOS testing
+    let data = {
+		"loadavg":[1,1,1],
+		"corenum":4,
+		"cpuuser":0.2,
+		"cpusys":0.2,
+		"memtotal":2319231430,
+		"memfree":343425233,
+		"memavail":2343432,
+		"disk":[
+			{
+				"name":"sdb",
+				"write":343,
+				"read":2434
+			},{
+				"name":"sda",
+				"write":34,
+				"read":434
+			}
+		]
+    };
+    setTimeout(()=>{
+        callback({
+            success: true,
+            reasons:[],
+            value: data
+        });
+    }, period);
+    return;*/
     if(typeof period === 'function'){
         callback = period;
         period = 1000;
