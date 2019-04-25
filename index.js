@@ -49,7 +49,7 @@ function start_monitoring(agentid){
     let temp_handle = setInterval(()=>{
         overall(interval_ * 1000, data=>{
             if(data.success){
-                post(`${domain}${url_prefix}/plugin/${agent_type}`, agentid, key, data.value);
+                post(`${domain}${url_prefix}/plugin/append/${agent_type}`, agentid, key, data.value);
             }else{
                 logger.warn(data.reasons[0]);
             }
